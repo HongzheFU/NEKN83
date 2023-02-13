@@ -111,6 +111,11 @@ viol_08, model_stats_08 = backtest(s_08)
 model_stats_07.loc['Kupiec_p-value']
 model_stats_08.loc['Kupiec_p-value']
 
+#Kupiec Test
+#For the Kupiec test, all violations number in each model for both years are larger than expected violations 2.52, thus we're testing the right tail for Kupiec, which means our models are underestimated. 
+#In 2007, the number of violations for BHS, n-distribution and t-distribution give us 15, 36, 27 seperately, and the corresponding p-values for these thress models are 5.689817e-08,0.000000, 0.000000. They are significant lower that 0.01, which mean we rejected these three models to be the method of estimating VaR. In contrast, the EWMA model and the Pot model give us a much lower violations number, both are 5 violations so that the p-values for them also are the same, 0.110502(larger than 0.01), which means we will not rejected EWMA and Pot models to be the approach to estimate the VaR.
+#In 2008, all five models give us a lower violations number compare to 2007, which are mismatching a little bit with the reality. In this year, these two distributions model, n and t, give us 12 and 9 number of violations. The corresponding p-values are 0.000012 and 0.001117, which are lower than our significant level 0.01, we rejected n and t models. N and T also give us same rejection results in 2007. In contrast, BHS, EWMA and Pot give us 7, 6 and 3 number of violations, the p-values for them are 0.014255, 0.042523 and 0.461974 correspondingly, which means we do not reject these three models to be the method of VaR estimation.
+#Overall, in the perspective of Kupiec test, EWMA and Pot models give us a good estimation for both years. Although BHS shows a good estimaiton in 2008, in 2007 we rejected it. So,between the EWMA and Pot models, the Pot model has the best estimation since these two models have the same p-value in 2007, but in 2008, the Pot model has a significant large p-value, which is better than EWMA.
 
 # Christofferson independence test
 # For each model in 2007, Christofferson test gives different results: BHS, n, t, POT have p-value over significance level 0,01; and EWMA has p-value less than 0,01. It indicates that EWMA is statistically rejected since violations are not independently distributed.
