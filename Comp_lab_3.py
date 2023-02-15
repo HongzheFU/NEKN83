@@ -88,35 +88,29 @@ ax.tick_params(axis='x',labelrotation=90,labelsize=9)
 
 # Task 2
 
-price_data["Date"] = pd.to_datetime(price_data["Date"])
-price_datatt = price_data.set_index('Date')
+price_data['Date'] = pd.to_datetime(price_data['Date'], format='%Y%m%d')
+PriceDateTT = price_data.set_index('Date')
 
-k=0.5
-K = accounting_data.LCT+k*accounting_data.DLTT 
+k = 0.5
+K = accounting_data.LCT + k*accounting_data.DLTT
 E = accounting_data.CSHO*price_data.Prices.iloc[-1] 
-rf = np.mean(risk_free.Riskfree) 
 enddate=datetime(2015,12,31)
 months=[1,3,6,9,12]
 sige = np.zeros(5)
 PD=[]
-
-#%%
 for j in range(5):
-    
     if j==0:
-        startdate=datetime(2005,11,30) 
+        startdate=datetime(2015,11,30) 
     elif j==1:
-        startdate=datetime(2005,9,30)
+        startdate=datetime(2015,9,30)
     elif j==2:
-        startdate=datetime(2005,6,30)
+        startdate=datetime(2015,6,30)
     elif j==3:
-        startdate=datetime(2005,3,31)
+        startdate=datetime(2015,3,31)
     elif j==4:
-        startdate=datetime(2004,12,31)
-
-    TR = (price_datatt.index >= startdate) & (price_datatt.index <= enddate)
-    
-    equityReturns = price_datatt.loc[TR, 'Prices'].pct_change().dropna()
+        startdate=datetime(2014,12,31)
+    TR = (PriceDateTT.index >= startdate) & (PriceDateTT.index <= enddate)
+    equityReturns = price_data.loc[TR,'Prices'].pct_change().dropna()
     
     sige[j] = equityReturns.std() *np.sqrt(250)
     res = minimize(my_merton, x0, method = 'BFGS',
